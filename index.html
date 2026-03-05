@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scary Shift</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="GasStationFon.JPG" as="image">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            image-rendering: crisp-edges;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .high-quality-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('GasStationFon.JPG') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+            
+            filter: none !important;
+            -webkit-filter: none !important;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000;
+            
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: none;
+            font-smooth: never;
+            
+            z-index: -2;
+            transition: background-image 0.5s ease;
+        }
+        
+        .high-quality-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #ff4655;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-right: 50px;
+        }
+        
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff4655, #7e22ce);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 70, 85, 0.3);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        nav a:hover {
+            background: rgba(255, 70, 85, 0.2);
+            color: #ff4655;
+        }
+        
+        nav a.active {
+            background: rgba(255, 70, 85, 0.3);
+            color: #ff4655;
+        }
+        
+        .support-button {
+            background: linear-gradient(to right, #ff9500, #ff4655);
+            color: white;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 149, 0, 0.3);
+        }
+        
+        .support-button:hover {
+            background: linear-gradient(to right, #ff7b00, #ff2e42);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 149, 0, 0.4);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 50px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px #ff0000, 0 0 15px #ff0000, 0 0 25px #ff0000;
+            background: linear-gradient(to right, #cc0000, #ff4655);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 8px #cc0000, 0 0 15px #cc0000, 0 0 20px #cc0000;
+            }
+            to {
+                text-shadow: 0 0 15px #cc0000, 0 0 25px #cc0000, 0 0 35px #cc0000;
+            }
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .screenshots-gallery {
+            max-width: 1100px;
+            margin: 40px auto 30px;
+            padding: 0 20px;
+        }
+        
+        .screenshots-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .screenshot-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 70, 85, 0.3);
+            transition: all 0.3s ease;
+            aspect-ratio: 16/9;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        
+        .screenshot-item:hover {
+            transform: translateY(-5px);
+            border-color: #ff4655;
+            box-shadow: 0 10px 25px rgba(255, 70, 85, 0.4);
+        }
+        
+        .screenshot-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .screenshot-item:hover .screenshot-img {
+            transform: scale(1.05);
+        }
+        
+        .screenshot-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .screenshot-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255, 70, 85, 0.3);
+        }
+        
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            background: rgba(255, 70, 85, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 70, 85, 1);
+            transform: scale(1.1);
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+            z-index: 1001;
+        }
+        
+        .nav-btn {
+            color: white;
+            background: rgba(255, 70, 85, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255, 70, 85, 1);
+            transform: scale(1.1);
+        }
+        
+        .screenshot-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            z-index: 1001;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, #ff4655, #7e22ce);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 70, 85, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 70, 85, 0.6);
+        }
+        
+        .socials-page {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .socials-title {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+        }
+        
+        .socials-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .social-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px 40px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            border: 2px solid transparent;
+        }
+        
+        .social-button:hover {
+            transform: translateY(-5px);
+            border-color: #ff4655;
+            box-shadow: 0 5px 20px rgba(255, 70, 85, 0.4);
+        }
+        
+        .social-button.youtube:hover {
+            border-color: #ff0000;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+        }
+        
+        .social-button.tiktok:hover {
+            border-color: #00f2ea;
+            box-shadow: 0 5px 20px rgba(0, 242, 234, 0.4);
+        }
+        
+        .custom-social-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-button:hover .custom-social-icon {
+            transform: scale(1.1);
+        }
+        
+        .social-button.youtube .custom-social-icon {
+            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
+        }
+        
+        .social-button.tiktok .custom-social-icon {
+            filter: drop-shadow(0 0 8px rgba(0, 242, 234, 0.5));
+        }
+        
+        .social-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .social-description {
+            font-size: 1rem;
+            color: #cbd5e1;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .status-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 70, 85, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .legal-info {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .support-page {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .support-title {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+        }
+        
+        .support-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #ff9500;
+        }
+        
+        .support-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+        
+        .donate-methods-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .donate-method {
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            width: 280px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .donate-method:hover {
+            transform: translateY(-5px);
+            border-color: #ff9500;
+            box-shadow: 0 10px 25px rgba(255, 149, 0, 0.2);
+        }
+        
+        .donate-icon {
+            height: 80px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-image {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+        }
+        
+        .donate-method.donatealerts {
+            background: linear-gradient(135deg, rgba(145, 70, 255, 0.1), rgba(30, 30, 46, 0.8));
+        }
+        
+        .donate-method.cloudtips {
+            background: linear-gradient(135deg, rgba(0, 180, 255, 0.1), rgba(30, 30, 46, 0.8));
+        }
+        .donate-method.cloudtips .donate-link {
+            background: linear-gradient(to right, #00b4ff, #7e22ce);
+        }
+        .donate-method.cloudtips .donate-link:hover {
+            background: linear-gradient(to right, #0099dd, #6b1fa8);
+            box-shadow: 0 5px 15px rgba(0, 180, 255, 0.4);
+        }
+        
+        .donate-method-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: 700;
+        }
+        
+        .donate-method-description {
+            font-size: 1rem;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        .donate-link {
+            display: inline-block;
+            background: linear-gradient(to right, #ff9500, #ff4655);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .donate-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 149, 0, 0.4);
+        }
+        
+        .thank-you-message {
+            margin-top: 30px;
+            font-style: italic;
+            color: #ff9500;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 149, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        .downloads-info {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        .downloads-info p {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .game-description {
+            font-size: 1.3rem !important;
+            margin-bottom: 25px !important;
+            line-height: 1.6 !important;
+        }
+        
+        .version-info {
+            font-size: 1.4rem !important;
+            margin-bottom: 15px !important;
+            color: #ffffff !important;
+            font-weight: 700 !important;
+        }
+        
+        .developer-info {
+            font-size: 1.2rem !important;
+            margin-bottom: 30px !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        
+        .downloads-button-container {
+            margin-top: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(to right, #ff4655, #7e22ce);
+            color: white;
+            padding: 15px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 70, 85, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 70, 85, 0.6);
+        }
+        
+        .download-btn i {
+            font-size: 1.5rem;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            line-height: 1.8;
+            font-size: 1.3rem;
+            color: #ffffff;
+        }
+        
+        .rating-container {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            border-left: 4px solid #ff9500;
+        }
+        
+        .rating-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .star {
+            font-size: 2rem;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .star:hover {
+            transform: scale(1.1);
+        }
+        
+        .star.selected {
+            color: #ff9500;
+        }
+        
+        .star.hover {
+            color: #ff9500;
+        }
+        
+        .rating-result {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #ff9500;
+            font-weight: 600;
+            min-height: 24px;
+        }
+        
+        .rating-count {
+            font-size: 1rem;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+        
+        .rating-average {
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .average-stars {
+            color: #ff9500;
+            font-size: 1.3rem;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                font-weight: 600;
+                padding: 15px;
+            }
+            
+            .screenshots-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .socials-container {
+                gap: 30px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .social-button {
+                min-width: 250px;
+                padding: 20px 30px;
+            }
+            
+            .logo {
+                margin-right: 0;
+            }
+            
+            .support-content {
+                padding: 20px;
+            }
+            
+            .donate-methods-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .donate-method {
+                width: 100%;
+                max-width: 300px;
+                min-height: auto;
+            }
+            
+            .custom-social-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .downloads-info {
+                padding: 25px;
+            }
+            
+            .game-description {
+                font-size: 1.1rem !important;
+            }
+            
+            .version-info {
+                font-size: 1.2rem !important;
+            }
+            
+            .developer-info {
+                font-size: 1.1rem !important;
+            }
+            
+            .about-content {
+                padding: 25px;
+                font-size: 1.1rem;
+            }
+            
+            .rating-container {
+                text-align: center;
+            }
+            
+            .rating-stars {
+                justify-content: center;
+            }
+            
+            .download-btn {
+                padding: 12px 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .screenshots-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .downloads-info {
+                padding: 20px;
+            }
+            
+            .about-content {
+                padding: 20px;
+                font-size: 1rem;
+            }
+            
+            .star {
+                font-size: 1.8rem;
+            }
+            
+            .download-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+
+        .pixel-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            -ms-interpolation-mode: nearest-neighbor;
+            z-index: -3;
+            display: none;
+        }
+        
+        .pixel-bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -2;
+            display: none;
+        }
+        
+        .use-pixel-bg .high-quality-bg {
+            display: none;
+        }
+        
+        .use-pixel-bg .pixel-bg,
+        .use-pixel-bg .pixel-bg-overlay {
+            display: block;
+        }
+        
+        .lang-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(30, 30, 46, 0.95);
+            padding: 10px 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+        
+        .lang-dropdown {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: rgba(30, 30, 46, 0.95);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            padding: 10px 0;
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            min-width: 150px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-dropdown.show {
+            display: flex;
+        }
+        
+        .lang-option {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .lang-option:hover {
+            background: rgba(255, 70, 85, 0.3);
+        }
+        
+        .lang-option.active {
+            background: rgba(255, 70, 85, 0.5);
+            color: #ff4655;
+        }
+        
+        .lang-option i {
+            width: 20px;
+            opacity: 0;
+        }
+        
+        .lang-option.active i {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="high-quality-bg" id="backgroundElement"></div>
+    <img class="pixel-bg" id="pixelBackground" src="GasStationFon.JPG" alt="Background">
+    <div class="pixel-bg-overlay"></div>
+    
+    <div class="status-message" id="statusMessage"></div>
+    
+    <div class="screenshot-modal" id="screenshotModal">
+        <div class="close-modal" id="closeModal">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal-nav">
+            <div class="nav-btn" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="nav-btn" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+        <div class="screenshot-counter" id="screenshotCounter">1 / 5</div>
+        <div class="modal-content">
+            <img src="" alt="Screenshot" class="modal-img" id="modalImg">
+        </div>
+    </div>
+    
+    <div class="lang-toggle" id="langToggle">
+        <i class="fas fa-globe"></i>
+        <span id="currentLangDisplay">English</span>
+        <div class="lang-dropdown" id="langDropdown">
+            <div class="lang-option active" data-lang="en">
+                <i class="fas fa-check"></i>
+                <span>English</span>
+            </div>
+            <div class="lang-option" data-lang="ru">
+                <i class="fas fa-check"></i>
+                <span>Русский</span>
+            </div>
+            <div class="lang-option" data-lang="it">
+                <i class="fas fa-check"></i>
+                <span>Italiano</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-img"></div>
+                <div class="logo-text">SCARY SHIFT</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> <span data-translate="navHome">Home</span></a></li>
+                    <li><a href="#" class="nav-link" data-page="downloads"><i class="fas fa-download"></i> <span data-translate="navDownloads">Downloads</span></a></li>
+                    <li><a href="#" class="nav-link" data-page="about"><i class="fas fa-info-circle"></i> <span data-translate="navAbout">About</span></a></li>
+                    <li><a href="#" class="nav-link" data-page="socials"><i class="fas fa-share-alt"></i> <span data-translate="navSocials">Socials</span></a></li>
+                    <li><a href="#" class="nav-link support-button" data-page="support"><i class="fas fa-heart"></i> <span data-translate="navSupport">Support</span></a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero page active" id="home-page">
+            <h1>SCARY SHIFT</h1>
+            <p data-translate="homeDescription">You've got a job at a gas station at night, you serve customers, you do tasks from the boss. Everything goes well, but then... What kind of incident happened at the gas station and how did it end? Find out by playing the game.</p>
+            
+            <div class="screenshots-gallery">
+                <div class="screenshots-container">
+                    <div class="screenshot-item" data-index="0">
+                        <img src="1.jpg" alt="Screenshot 1" class="screenshot-img" onerror="this.src='https://via.placeholder.com/300x169/222/ff4655?text=Screenshot+1'">
+                    </div>
+                    <div class="screenshot-item" data-index="1">
+                        <img src="2.jpg" alt="Screenshot 2" class="screenshot-img" onerror="this.src='https://via.placeholder.com/300x169/222/7e22ce?text=Screenshot+2'">
+                    </div>
+                    <div class="screenshot-item" data-index="2">
+                        <img src="3.jpg" alt="Screenshot 3" class="screenshot-img" onerror="this.src='https://via.placeholder.com/300x169/222/ff9500?text=Screenshot+3'">
+                    </div>
+                    <div class="screenshot-item" data-index="3">
+                        <img src="4.jpg" alt="Screenshot 4" class="screenshot-img" onerror="this.src='https://via.placeholder.com/300x169/222/00f2ea?text=Screenshot+4'">
+                    </div>
+                    <div class="screenshot-item" data-index="4">
+                        <img src="5.jpg" alt="Screenshot 5" class="screenshot-img" onerror="this.src='https://via.placeholder.com/300x169/222/cc0000?text=Screenshot+5'">
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="cta-button" id="homeDownloadBtn" data-translate="homeDownloadBtn">DOWNLOAD NOW</a>
+        </section>
+        
+        <section class="page" id="socials-page">
+            <div class="socials-page">
+                <h2 class="socials-title" data-translate="socialsTitle">My Social Media</h2>
+                <div class="socials-container">
+                    <a href="https://youtube.com/@flayrtag179?si=sKoJ2Vt7HVFF78Bw" target="_blank" class="social-button youtube">
+                        <img src="youtubeicon.png" alt="YouTube Icon" class="custom-social-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1384/1384060.png'">
+                        <div class="social-name">YouTube</div>
+                        <div class="social-description" data-translate="youtubeDesc">Subscribe to my channel</div>
+                    </a>
+                    <a href="https://www.tiktok.com/@flayrtag179?_r=1&_t=ZP-938iMEQ0Pkt" target="_blank" class="social-button tiktok">
+                        <img src="tiktok.png" alt="TikTok Icon" class="custom-social-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3046/3046121.png'">
+                        <div class="social-name">TikTok</div>
+                        <div class="social-description" data-translate="tiktokDesc">Follow me on TikTok</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="page" id="downloads-page">
+            <div class="socials-page">
+                <h2 class="socials-title" data-translate="downloadsTitle">Downloads</h2>
+                <div class="downloads-info">
+                    <p class="game-description" data-translate="gameDescription">The game is made in the style of psychological horror. Also, the game is free (but you can support the developer with a donation).</p>
+                    <p class="version-info" data-translate="versionInfo">Version: 1.0.0</p>
+                    <p class="developer-info" data-translate="developerInfo">Game developer: Flayr179</p>
+                    
+                    <div class="downloads-button-container">
+                        <button class="download-btn" id="downloadGameBtn">
+                            <i class="fab fa-windows"></i>
+                            <span data-text="Windows download" data-translate="downloadBtn">DOWNLOAD</span>
+                        </button>
+                    </div>
+                    
+                    <div class="rating-container">
+                        <div class="rating-title" data-translate="rateGame">Rate the game:</div>
+                        <div class="rating-stars" id="ratingStars">
+                            <div class="star" data-value="1">★</div>
+                            <div class="star" data-value="2">★</div>
+                            <div class="star" data-value="3">★</div>
+                            <div class="star" data-value="4">★</div>
+                            <div class="star" data-value="5">★</div>
+                        </div>
+                        <div class="rating-result" id="ratingResult"></div>
+                        <div class="rating-count" id="ratingCount">0 ratings</div>
+                        <div class="rating-average" id="ratingAverage">
+                            <span data-translate="averageRating">Average rating:</span>
+                            <span class="average-stars">★★★★★</span>
+                            <span>(0.0)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="page" id="about-page">
+            <div class="socials-page">
+                <h2 class="socials-title" data-translate="aboutTitle">About Game</h2>
+                <div class="about-content" data-translate="aboutDescription">
+                    Scary Shift is my first game that I developed on my own. Later, I want to develop another project, or rather, my second game. As for Scary Shift, there will still be updates, like bug fixes, and I might add achievements and other things...
+                </div>
+            </div>
+        </section>
+        
+        <section class="page" id="support-page">
+            <div class="support-page">
+                <h2 class="support-title" data-translate="supportTitle">Support the Game</h2>
+                <div class="support-content">
+                    <p class="support-description" data-translate="supportDescription">
+                        Support the development of Scary Shift! Also, with each donation, you support the game developer himself
+                    </p>
+                    
+                    <div class="donate-methods-container">
+                        <div class="donate-method donatealerts">
+                            <div class="donate-icon">
+                                <img src="DonationAlerts.png" alt="DonationAlerts" class="logo-image">
+                            </div>
+                            <h3 class="donate-method-title">DonationAlerts</h3>
+                            <p class="donate-method-description" data-translate="donationAlertsDesc">
+                                Instant donations with messages.
+                            </p>
+                            <a href="https://www.donationalerts.com/r/flayrtag179" target="_blank" class="donate-link" data-translate="donateBtn">Donate via DonationAlerts</a>
+                        </div>
+                        
+                        <div class="donate-method cloudtips">
+                            <div class="donate-icon">
+                                <img src="CloudTips.png" alt="CloudTips" class="logo-image" onerror="this.src='https://via.placeholder.com/80x80/222/00b4ff?text=CT'">
+                            </div>
+                            <h3 class="donate-method-title">CloudTips</h3>
+                            <p class="donate-method-description" data-translate="cloudTipsDesc">
+                                Fast and secure donations via CloudTips.
+                            </p>
+                            <a href="https://pay.cloudtips.ru/p/fd68c625" target="_blank" class="donate-link" data-translate="cloudTipsBtn">Donate via CloudTips</a>
+                        </div>
+                    </div>
+                    
+                    <div class="thank-you-message" data-translate="thankYou">
+                        Thank you for your support! ❤️
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="legal-info">
+            <p data-translate="legalText">Scary Shift is designed to look like a psychological horror game, and is not related to any other game.</p>
+            <p data-translate="copyright">© 2026 Scary Shift. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                navHome: 'Home',
+                navDownloads: 'Downloads',
+                navAbout: 'About',
+                navSocials: 'Socials',
+                navSupport: 'Support',
+                homeDescription: "You've got a job at a gas station at night, you serve customers, you do tasks from the boss. Everything goes well, but then... What kind of incident happened at the gas station and how did it end? Find out by playing the game.",
+                homeDownloadBtn: 'DOWNLOAD NOW',
+                socialsTitle: 'My Social Media',
+                youtubeDesc: 'Subscribe to my channel',
+                tiktokDesc: 'Follow me on TikTok',
+                downloadsTitle: 'Downloads',
+                gameDescription: 'The game is made in the style of psychological horror. Also, the game is free (but you can support the developer with a donation).',
+                versionInfo: 'Version: 1.0.0',
+                developerInfo: 'Game developer: Flayr179',
+                downloadBtn: 'DOWNLOAD',
+                rateGame: 'Rate the game:',
+                averageRating: 'Average rating:',
+                aboutTitle: 'About Game',
+                aboutDescription: 'Scary Shift is my first game that I developed on my own. Later, I want to develop another project, or rather, my second game. As for Scary Shift, there will still be updates, like bug fixes, and I might add achievements and other things...',
+                supportTitle: 'Support the Game',
+                supportDescription: 'Support the development of Scary Shift! Also, with each donation, you support the game developer himself',
+                donationAlertsDesc: 'Instant donations with messages.',
+                donateBtn: 'Donate via DonationAlerts',
+                cloudTipsDesc: 'Fast and secure donations via CloudTips.',
+                cloudTipsBtn: 'Donate via CloudTips',
+                thankYou: 'Thank you for your support! ❤️',
+                legalText: 'Scary Shift is designed to look like a psychological horror game, and is not related to any other game.',
+                copyright: '© 2026 Scary Shift. All rights reserved.'
+            },
+            ru: {
+                navHome: 'Главная',
+                navDownloads: 'Загрузки',
+                navAbout: 'О игре',
+                navSocials: 'Соцсети',
+                navSupport: 'Поддержка',
+                homeDescription: 'Вы устроились на работу на заправку в ночную смену, обслуживаете клиентов, выполняете задания босса. Всё идёт хорошо, но вдруг... Что за инцидент произошёл на заправке и чем он закончится? Узнайте, сыграв в игру.',
+                homeDownloadBtn: 'СКАЧАТЬ СЕЙЧАС',
+                socialsTitle: 'Мои соцсети',
+                youtubeDesc: 'Подпишитесь на мой канал',
+                tiktokDesc: 'Подпишитесь на меня в TikTok',
+                downloadsTitle: 'Загрузки',
+                gameDescription: 'Игра выполнена в стиле психологического хоррора. Также игра бесплатна (но вы можете поддержать разработчика донатом).',
+                versionInfo: 'Версия: 1.0.0',
+                developerInfo: 'Разработчик игры: Flayr179',
+                downloadBtn: 'СКАЧАТЬ',
+                rateGame: 'Оцените игру:',
+                averageRating: 'Средняя оценка:',
+                aboutTitle: 'Об игре',
+                aboutDescription: 'Scary Shift — моя первая игра, которую я разработал самостоятельно. Позже я хочу разработать другой проект, а точнее, свою вторую игру. Что касается Scary Shift, то обновления ещё будут, например, исправления багов, и я, возможно, добавлю достижения и другое...',
+                supportTitle: 'Поддержать игру',
+                supportDescription: 'Поддержите разработку Scary Shift! Также каждым донатом вы поддерживаете самого разработчика игры',
+                donationAlertsDesc: 'Мгновенные донаты с сообщениями.',
+                donateBtn: 'Донат через DonationAlerts',
+                cloudTipsDesc: 'Быстрые и безопасные донаты через CloudTips.',
+                cloudTipsBtn: 'Донат через CloudTips',
+                thankYou: 'Спасибо за вашу поддержку! ❤️',
+                legalText: 'Scary Shift разработана в стиле психологического хоррора и не связана с какой-либо другой игрой.',
+                copyright: '© 2026 Scary Shift. Все права защищены.'
+            },
+            it: {
+                navHome: 'Home',
+                navDownloads: 'Download',
+                navAbout: 'Info',
+                navSocials: 'Social',
+                navSupport: 'Supporto',
+                homeDescription: 'Hai un lavoro notturno in una stazione di servizio, servi i clienti, esegui i compiti del capo. Tutto va bene, ma poi... Che tipo di incidente è successo alla stazione di servizio e come è finito? Scoprilo giocando.',
+                homeDownloadBtn: 'SCARICA ORA',
+                socialsTitle: 'I miei social',
+                youtubeDesc: 'Iscriviti al mio canale',
+                tiktokDesc: 'Seguimi su TikTok',
+                downloadsTitle: 'Download',
+                gameDescription: 'Il gioco è realizzato in stile horror psicologico. Inoltre, il gioco è gratuito (ma puoi sostenere lo sviluppatore con una donazione).',
+                versionInfo: 'Versione: 1.0.0',
+                developerInfo: 'Sviluppatore: Flayr179',
+                downloadBtn: 'SCARICA',
+                rateGame: 'Valuta il gioco:',
+                averageRating: 'Valutazione media:',
+                aboutTitle: 'Informazioni',
+                aboutDescription: 'Scary Shift è il mio primo gioco che ho sviluppato da solo. In seguito, voglio sviluppare un altro progetto, o meglio, il mio secondo gioco. Per quanto riguarda Scary Shift, ci saranno ancora aggiornamenti, come correzioni di bug, e potrei aggiungere achievement e altre cose...',
+                supportTitle: 'Supporta il gioco',
+                supportDescription: 'Sostieni lo sviluppo di Scary Shift! Inoltre, con ogni donazione, supporti lo sviluppatore stesso',
+                donationAlertsDesc: 'Donazioni istantanee con messaggi.',
+                donateBtn: 'Dona tramite DonationAlerts',
+                cloudTipsDesc: 'Donazioni veloci e sicure tramite CloudTips.',
+                cloudTipsBtn: 'Dona tramite CloudTips',
+                thankYou: 'Grazie per il tuo supporto! ❤️',
+                legalText: 'Scary Shift è progettato per sembrare un gioco horror psicologico e non è correlato a nessun altro gioco.',
+                copyright: '© 2026 Scary Shift. Tutti i diritti riservati.'
+            }
+        };
+
+        function showStatusMessage(message) {
+            const statusElement = document.getElementById('statusMessage');
+            statusElement.textContent = message;
+            statusElement.style.backgroundColor = 'rgba(56, 193, 114, 0.9)';
+            statusElement.style.display = 'block';
+            
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 3000);
+        }
+
+        function changeBgImage(imageUrl) {
+            document.body.classList.remove('use-pixel-bg');
+            const bgElement = document.getElementById('backgroundElement');
+            bgElement.style.backgroundImage = `url('${imageUrl}')`;
+            bgElement.style.background = '';
+            bgElement.style.backgroundSize = 'cover';
+            bgElement.style.backgroundPosition = 'center';
+            bgElement.style.backgroundRepeat = 'no-repeat';
+            bgElement.style.imageRendering = 'crisp-edges';
+            bgElement.style.imageRendering = 'pixelated';
+            bgElement.style.msInterpolationMode = 'nearest-neighbor';
+        }
+        
+        let currentScreenshotIndex = 0;
+        const screenshots = [
+            { src: '1.jpg', alt: 'Screenshot 1' },
+            { src: '2.jpg', alt: 'Screenshot 2' },
+            { src: '3.jpg', alt: 'Screenshot 3' },
+            { src: '4.jpg', alt: 'Screenshot 4' },
+            { src: '5.jpg', alt: 'Screenshot 5' }
+        ];
+        
+        function openScreenshotModal(index) {
+            currentScreenshotIndex = index;
+            const modal = document.getElementById('screenshotModal');
+            const modalImg = document.getElementById('modalImg');
+            const counter = document.getElementById('screenshotCounter');
+            modalImg.src = screenshots[currentScreenshotIndex].src;
+            modalImg.alt = screenshots[currentScreenshotIndex].alt;
+            counter.textContent = `${currentScreenshotIndex + 1} / ${screenshots.length}`;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeScreenshotModal() {
+            const modal = document.getElementById('screenshotModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function navigateScreenshot(direction) {
+            if (direction === 'next') {
+                currentScreenshotIndex = (currentScreenshotIndex + 1) % screenshots.length;
+            } else {
+                currentScreenshotIndex = (currentScreenshotIndex - 1 + screenshots.length) % screenshots.length;
+            }
+            const modalImg = document.getElementById('modalImg');
+            const counter = document.getElementById('screenshotCounter');
+            modalImg.src = screenshots[currentScreenshotIndex].src;
+            modalImg.alt = screenshots[currentScreenshotIndex].alt;
+            counter.textContent = `${currentScreenshotIndex + 1} / ${screenshots.length}`;
+        }
+        
+        class RatingSystem {
+            constructor() {
+                this.userRating = 0;
+                this.hasRated = false;
+                this.ratings = JSON.parse(localStorage.getItem('scaryShiftRatings')) || [];
+                this.initialize();
+            }
+            initialize() {
+                this.stars = document.querySelectorAll('.star');
+                this.ratingResult = document.getElementById('ratingResult');
+                this.ratingCount = document.getElementById('ratingCount');
+                this.ratingAverage = document.getElementById('ratingAverage');
+                this.stars.forEach(star => {
+                    star.addEventListener('click', (e) => this.handleStarClick(e));
+                    star.addEventListener('mouseover', (e) => this.handleStarHover(e, true));
+                    star.addEventListener('mouseout', (e) => this.handleStarHover(e, false));
+                });
+                this.updateDisplay();
+                const userRating = localStorage.getItem('scaryShiftUserRating');
+                if (userRating) {
+                    this.userRating = parseInt(userRating);
+                    this.hasRated = true;
+                    this.highlightStars(this.userRating);
+                    this.ratingResult.textContent = `You rated: ${this.userRating} star${this.userRating > 1 ? 's' : ''}`;
+                }
+            }
+            handleStarClick(e) {
+                if (this.hasRated) {
+                    showStatusMessage('You have already rated this game!');
+                    return;
+                }
+                const value = parseInt(e.target.getAttribute('data-value'));
+                this.userRating = value;
+                this.hasRated = true;
+                this.ratings.push(value);
+                localStorage.setItem('scaryShiftRatings', JSON.stringify(this.ratings));
+                localStorage.setItem('scaryShiftUserRating', value);
+                this.highlightStars(value);
+                this.ratingResult.textContent = `Thank you for your rating! You rated: ${value} star${value > 1 ? 's' : ''}`;
+                showStatusMessage('Thank you for rating the game!');
+                this.updateDisplay();
+            }
+            handleStarHover(e, isHover) {
+                if (this.hasRated) return;
+                const value = parseInt(e.target.getAttribute('data-value'));
+                if (isHover) {
+                    this.highlightStars(value, true);
+                } else {
+                    this.highlightStars(0);
+                }
+            }
+            highlightStars(count, isHover = false) {
+                this.stars.forEach((star, index) => {
+                    star.classList.remove('selected', 'hover');
+                    if (index < count) {
+                        star.classList.add(isHover ? 'hover' : 'selected');
+                    }
+                });
+            }
+            calculateAverage() {
+                if (this.ratings.length === 0) return 0;
+                const sum = this.ratings.reduce((a, b) => a + b, 0);
+                return (sum / this.ratings.length).toFixed(1);
+            }
+            getStarRating(average) {
+                const fullStars = Math.floor(average);
+                const hasHalfStar = average % 1 >= 0.5;
+                let stars = '';
+                for (let i = 0; i < 5; i++) {
+                    if (i < fullStars) {
+                        stars += '★';
+                    } else if (i === fullStars && hasHalfStar) {
+                        stars += '★';
+                    } else {
+                        stars += '☆';
+                    }
+                }
+                return stars;
+            }
+            updateDisplay() {
+                const count = this.ratings.length;
+                const average = this.calculateAverage();
+                const starRating = this.getStarRating(average);
+                this.ratingCount.textContent = `${count} rating${count !== 1 ? 's' : ''}`;
+                this.ratingAverage.innerHTML = `
+                    <span>${translations[currentLang].averageRating}</span>
+                    <span class="average-stars">${starRating}</span>
+                    <span>(${average})</span>
+                `;
+            }
+        }
+
+        function applyLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'BUTTON') {
+                        element.value = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            document.getElementById('currentLangDisplay').textContent = 
+                lang === 'en' ? 'English' : lang === 'ru' ? 'Русский' : 'Italiano';
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+            });
+            if (ratingSystem) ratingSystem.updateDisplay();
+            localStorage.setItem('scaryShiftLanguage', lang);
+        }
+
+        function downloadFromYandexDisk() {
+            const githubUrl = 'https://github.com/scaryshift/scaryshift/releases/download/scaryshift/Scary.Shift.rar';
+            
+            const link = document.createElement('a');
+            link.href = githubUrl;
+            link.download = 'Scary.Shift.rar';
+            link.style.display = 'none';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        let currentLang = localStorage.getItem('scaryShiftLanguage') || 'en';
+        let ratingSystem;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    const pageId = this.getAttribute('data-page');
+                    pages.forEach(page => page.classList.remove('active'));
+                    const targetPage = document.getElementById(pageId + '-page');
+                    if (targetPage) targetPage.classList.add('active');
+                });
+            });
+            
+            const screenshotItems = document.querySelectorAll('.screenshot-item');
+            screenshotItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    openScreenshotModal(index);
+                });
+            });
+            
+            document.getElementById('closeModal').addEventListener('click', closeScreenshotModal);
+            document.getElementById('prevBtn').addEventListener('click', () => navigateScreenshot('prev'));
+            document.getElementById('nextBtn').addEventListener('click', () => navigateScreenshot('next'));
+            
+            document.getElementById('screenshotModal').addEventListener('click', function(e) {
+                if (e.target === this) closeScreenshotModal();
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                const modal = document.getElementById('screenshotModal');
+                if (modal.classList.contains('active')) {
+                    if (e.key === 'Escape') closeScreenshotModal();
+                    else if (e.key === 'ArrowRight') navigateScreenshot('next');
+                    else if (e.key === 'ArrowLeft') navigateScreenshot('prev');
+                }
+            });
+            
+            const langToggle = document.getElementById('langToggle');
+            const langDropdown = document.getElementById('langDropdown');
+            
+            langToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                langDropdown.classList.toggle('show');
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!langToggle.contains(e.target)) {
+                    langDropdown.classList.remove('show');
+                }
+            });
+            
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const lang = this.getAttribute('data-lang');
+                    applyLanguage(lang);
+                    langDropdown.classList.remove('show');
+                });
+            });
+            
+            document.getElementById('homeDownloadBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelector('a[data-page="downloads"]').classList.add('active');
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById('downloads-page').classList.add('active');
+            });
+            
+            document.getElementById('downloadGameBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                downloadFromYandexDisk();
+            });
+            
+            ratingSystem = new RatingSystem();
+            applyLanguage(currentLang);
+            setTimeout(() => changeBgImage('GasStationFon.JPG'), 100);
+        });
+    </script>
+</body>
+</html>
