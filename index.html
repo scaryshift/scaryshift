@@ -35,18 +35,22 @@
             background: url('GasStationFon.JPG') no-repeat center center;
             background-size: cover;
             background-attachment: fixed;
+            
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
             image-rendering: pixelated;
             -ms-interpolation-mode: nearest-neighbor;
+            
             filter: none !important;
             -webkit-filter: none !important;
             transform: translateZ(0);
             backface-visibility: hidden;
             perspective: 1000;
+            
             -webkit-font-smoothing: none;
             -moz-osx-font-smoothing: none;
             font-smooth: never;
+            
             z-index: -2;
             transition: background-image 0.5s ease;
         }
@@ -1192,7 +1196,7 @@
                 tiktokDesc: 'Follow me on TikTok',
                 downloadsTitle: 'Downloads',
                 gameDescription: 'The game is made in the style of psychological horror. Also, the game is free (but you can support the developer with a donation).',
-                versionInfo: 'Version: 1.1.0',
+                versionInfo: 'Version: 1.0.0',
                 developerInfo: 'Game developer: Flayr179',
                 downloadBtn: 'DOWNLOAD',
                 rateGame: 'Rate the game:',
@@ -1222,7 +1226,7 @@
                 tiktokDesc: 'Подпишитесь на меня в TikTok',
                 downloadsTitle: 'Загрузки',
                 gameDescription: 'Игра выполнена в стиле психологического хоррора. Также игра бесплатна (но вы можете поддержать разработчика донатом).',
-                versionInfo: 'Версия: 1.1.0',
+                versionInfo: 'Версия: 1.0.0',
                 developerInfo: 'Разработчик игры: Flayr179',
                 downloadBtn: 'СКАЧАТЬ',
                 rateGame: 'Оцените игру:',
@@ -1252,7 +1256,7 @@
                 tiktokDesc: 'Seguimi su TikTok',
                 downloadsTitle: 'Download',
                 gameDescription: 'Il gioco è realizzato in stile horror psicologico. Inoltre, il gioco è gratuito (ma puoi sostenere lo sviluppatore con una donazione).',
-                versionInfo: 'Versione: 1.1.0',
+                versionInfo: 'Versione: 1.0.0',
                 developerInfo: 'Sviluppatore: Flayr179',
                 downloadBtn: 'SCARICA',
                 rateGame: 'Valuta il gioco:',
@@ -1449,11 +1453,11 @@
         }
 
         function downloadFromYandexDisk() {
-            const githubUrl = 'https://github.com/scaryshift/scaryshift/releases/download/scaryshift/Scary.Shift.zip';
+            const githubUrl = 'https://github.com/scaryshift/scaryshift/releases/download/scaryshift/Scary.Shift.rar';
             
             const link = document.createElement('a');
             link.href = githubUrl;
-            link.download = 'Scary.Shift.zip';
+            link.download = 'Scary.Shift.rar';
             link.style.display = 'none';
             
             document.body.appendChild(link);
